@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome — PRIME Intake</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e14;
+            color: #e5e5e5;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            color: #fff;
+        }
+        
+        h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #fff;
+            line-height: 1.2;
+        }
+        
+        .intro {
+            font-size: 17px;
+            color: #aaa;
+            margin-bottom: 60px;
+            line-height: 1.7;
+        }
+        
+        .section {
+            margin-bottom: 48px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #fff;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        
+        .section p {
+            color: #aaa;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        
+        .section ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 16px;
+        }
+        
+        .section li {
+            padding: 12px 0 12px 24px;
+            border-left: 2px solid #2a2a2a;
+            margin-bottom: 12px;
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .section li:before {
+            content: "→";
+            position: absolute;
+            left: 8px;
+            color: #666;
+        }
+        
+        .section li strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        
+        .info-box {
+            background: rgba(184, 147, 110, 0.08);
+            border: 1px solid rgba(184, 147, 110, 0.2);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        
+        .info-box p {
+            color: #B8936E;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        .legal-box {
+            background: #151515;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+        
+        .legal-box p {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        
+        .legal-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .legal-box strong {
+            color: #aaa;
+        }
+        
+        .optional-prep {
+            background: #151515;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        
+        .optional-prep h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        
+        .optional-prep ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin: 0;
+        }
+        
+        .optional-prep li {
+            color: #888;
+            font-size: 14px;
+            padding: 4px 0;
+            margin: 0;
+            border: none;
+        }
+        
+        .optional-prep li:before {
+            content: none;
+        }
+        
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: #B8936E;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 40px;
+        }
+        
+        .cta-button:hover {
+            background: #C9A47E;
+        }
+        
+        .time-estimate {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 16px;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 40px 20px; }
+            h1 { font-size: 28px; }
+            .section-title { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">PRIME</div>
+        
+        <h1>Welcome — Next Steps</h1>
+        
+        <p class="intro">
+            You've been accepted to proceed. The goal of this intake is simple: so our first consult is focused on insight and decisions — not paperwork.
+        </p>
+        
+        <!-- HOW IT WORKS -->
+        <div class="section">
+            <div class="section-title">How It Works</div>
+            
+            <ul>
+                <li>
+                    <strong>Module A: Context (~5 minutes)</strong>
+                    Who you are, what matters, who's on your care team
+                </li>
+                <li>
+                    <strong>Module B: Safety & Medical Background (~8-10 minutes)</strong>
+                    Key history, medications, and safety checks
+                </li>
+                <li>
+                    <strong>Module C: Priorities (~7-10 minutes)</strong>
+                    Goals, constraints, readiness, and what success looks like
+                </li>
+            </ul>
+            
+            <div class="info-box">
+                <p><strong>You can complete this in one sitting or across a day or two.</strong> Your progress is automatically saved.</p>
+            </div>
+        </div>
+        
+        <!-- WHY WE DO THIS -->
+        <div class="section">
+            <div class="section-title">Why We Do It This Way</div>
+            <p>Most healthcare spends your paid time collecting basic information. We do the opposite: we collect it upfront so we can use our time together for interpretation, prioritization, and a plan that fits your real life.</p>
+        </div>
+        
+        <!-- IMPORTANT BOUNDARIES -->
+        <div class="section">
+            <div class="section-title">Important Boundaries</div>
+            
+            <div class="legal-box">
+                <p><strong>This intake does not provide diagnosis or treatment.</strong> This process collects information to prepare for your consultation. It is not an emergency service and does not replace your GP or existing specialist care.</p>
+                
+                <p><strong>If you have urgent symptoms</strong> (chest pain, severe breathlessness, suicidal thoughts, or anything you feel is an emergency), contact emergency services or your usual doctor immediately.</p>
+                
+                <p><strong>This service is designed to support your health journey</strong> and works alongside — not instead of — your existing medical care.</p>
+            </div>
+        </div>
+        
+        <!-- PRIVACY -->
+        <div class="section">
+            <div class="section-title">Privacy</div>
+            
+            <div class="legal-box">
+                <p>We treat your information as confidential and limit access to the team supporting your care. We don't sell your data.</p>
+                
+                <p>If you'd like a copy of what you submitted or want it deleted, contact us at contact@primeperformancehealth.com.au</p>
+            </div>
+        </div>
+        
+        <!-- OPTIONAL PREP -->
+        <div class="section">
+            <div class="optional-prep">
+                <h3>Optional: What to Have Handy</h3>
+                <p style="color: #888; font-size: 13px; margin-bottom: 12px;">If you have them, these can help:</p>
+                <ul>
+                    <li>Recent blood tests / imaging reports</li>
+                    <li>A current medication list (including doses)</li>
+                    <li>Relevant specialist letters</li>
+                </ul>
+            </div>
+        </div>
+        
+        <a href="/module-a.html?client_id=" class="cta-button" id="begin-btn">Begin Module A →</a>
+        
+        <p class="time-estimate">Total time across all modules: 20-30 minutes</p>
+    </div>
+    
+    <script>
+        // Generate or retrieve client_id and pass to Module A
+        function getOrCreateClientId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let clientId = urlParams.get('client_id');
+            
+            if (!clientId) {
+                clientId = localStorage.getItem('prime_client_id');
+            }
+            
+            if (!clientId) {
+                clientId = 'client_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('prime_client_id', clientId);
+            }
+            
+            return clientId;
+        }
+        
+        // Update button link with client_id
+        const clientId = getOrCreateClientId();
+        const beginBtn = document.getElementById('begin-btn');
+        beginBtn.href = `/module-a.html?client_id=${clientId}`;
+    </script>
+</body>
+</html>

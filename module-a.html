@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intake — PRIME</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e14;
+            color: #e5e5e5;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            color: #fff;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 48px;
+            font-weight: 400;
+        }
+        
+        .disclaimer {
+            border-left: 2px solid #333;
+            padding-left: 16px;
+            margin-bottom: 48px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .form-group {
+            margin-bottom: 32px;
+        }
+        
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #aaa;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            background: #151515;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            color: #e5e5e5;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #444;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        ::placeholder {
+            color: #555;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #151515;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .checkbox-option:hover {
+            border-color: #444;
+        }
+        
+        .checkbox-option input {
+            margin-right: 12px;
+            accent-color: #fff;
+        }
+        
+        .checkbox-option label {
+            margin: 0;
+            color: #e5e5e5;
+            cursor: pointer;
+            font-weight: 400;
+        }
+        
+        .consent {
+            background: #151515;
+            border: 1px solid #2a2a2a;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 40px 0;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .consent input {
+            margin-top: 2px;
+            accent-color: #fff;
+        }
+        
+        .consent label {
+            color: #aaa;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 40px 20px; }
+            h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">PRIME</div>
+        
+        <h1>Context & Orientation</h1>
+        <p class="subtitle">Module A — Getting to Know You</p>
+        
+        <div class="disclaimer">
+            This intake does not provide diagnosis or treatment and does not replace your GP or emergency services. If you have urgent symptoms (chest pain, severe breathlessness, thoughts of self-harm), seek urgent medical care immediately.
+        </div>
+        
+        <form name="module-a" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/module-a-success.html">
+            <input type="hidden" name="form-name" value="module-a">
+            <input type="hidden" name="module" value="A">
+            <input type="hidden" name="client_id" id="client_id" value="">
+            <input type="hidden" name="subject" value="PRIME Intake - Module A">
+            <p style="display:none"><label>Don't fill: <input name="bot-field"></label></p>
+            
+            <div class="form-group">
+                <label>Occupation / main work demands</label>
+                <input type="text" name="occupation" required placeholder="e.g., CEO, Partner, Founder, Portfolio Director">
+            </div>
+            
+            <div class="form-group">
+                <label>How did you hear about PRIME?</label>
+                <select name="referral_source" required>
+                    <option value="">Select...</option>
+                    <option value="Referral">Referral from colleague/friend</option>
+                    <option value="Google">Google search</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="GP">GP referral</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>In your own words, how would you describe your current health?</label>
+                <textarea name="health_description" required placeholder="No medical detail needed — just a broad sense of where you're at"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>What are the main areas you feel are holding you back right now?</label>
+                <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Select all that apply</p>
+                <div class="checkbox-group">
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="area1" name="areas" value="Low energy / fatigue">
+                        <label for="area1">Low energy / fatigue</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="area2" name="areas" value="Poor fitness or strength">
+                        <label for="area2">Poor fitness or strength</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="area3" name="areas" value="Pain or physical limitations">
+                        <label for="area3">Pain or physical limitations</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="area4" name="areas" value="Poor sleep">
+                        <label for="area4">Poor sleep</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="area5" name="areas" value="Mental stress or burnout">
+                        <label for="area5">Mental stress or burnout</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="area6" name="areas" value="Body composition concerns">
+                        <label for="area6">Body composition concerns</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="area7" name="areas" value="Sexual health or hormones">
+                        <label for="area7">Sexual health or hormones</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="area8" name="areas" value="Uncertainty / confusion about health">
+                        <label for="area8">Uncertainty / confusion about health</label>
+                    </div>
+                    <div class="checkbox-option">
+                        <input type="checkbox" id="area9" name="areas" value="Other">
+                        <label for="area9">Other</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>What does "better health" realistically look like for you?</label>
+                <textarea name="better_health" required placeholder="Be specific about what outcomes matter"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Who is currently involved in your healthcare?</label>
+                <p style="font-size: 13px; color: #666; margin-bottom: 12px;">This helps us coordinate safely</p>
+                
+                <input type="text" name="gp_name" placeholder="GP name (if applicable)" style="margin-bottom: 12px;">
+                
+                <textarea name="specialists" placeholder="List any specialists you're seeing (name + specialty, e.g., Dr Smith - Cardiology)"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Is there anything important about you or your situation that would help us understand you better?</label>
+                <textarea name="additional_context" placeholder="Optional — but this is your space to share relevant context"></textarea>
+            </div>
+            
+            <div class="consent">
+                <input type="checkbox" name="consent" value="yes" required id="consent">
+                <label for="consent">I understand this intake does not provide diagnosis or treatment and does not replace my GP or emergency care. If I have urgent symptoms, I will seek urgent medical care immediately. I consent to proceed.</label>
+            </div>
+            
+            <button type="submit">Continue to Safety Screening →</button>
+        </form>
+    </div>
+    
+    <script>
+        // Get client_id from localStorage or URL
+        function getClientId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let clientId = urlParams.get('client_id');
+            
+            if (!clientId) {
+                clientId = localStorage.getItem('prime_client_id');
+            }
+            
+            if (!clientId) {
+                clientId = 'client_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('prime_client_id', clientId);
+            }
+            
+            return clientId;
+        }
+        
+        document.getElementById('client_id').value = getClientId();
+    </script>
+</body>
+</html>

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goals & Priorities – PRIME</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e14;
+            color: #e5e5e5;
+            line-height: 1.6;
+        }
+        
+        /* DEBUG BANNER */
+        .debug-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffeb3b;
+            color: #000;
+            padding: 12px 20px;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+            z-index: 9999;
+            display: none;
+            border-bottom: 3px solid #f57f17;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .debug-banner.show {
+            display: block;
+        }
+        
+        .debug-banner div {
+            margin: 4px 0;
+        }
+        
+        .debug-banner .label {
+            font-weight: 700;
+            display: inline-block;
+            width: 140px;
+        }
+        
+        .debug-banner .ok { color: #2e7d32; font-weight: 700; }
+        .debug-banner .warn { color: #f57c00; font-weight: 700; }
+        .debug-banner .error { color: #c62828; font-weight: 700; }
+        
+        body.debug-mode {
+            padding-top: 100px;
+        }
+        
+        /* BLOCKING OVERLAY */
+        .block-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .block-overlay.show {
+            display: flex;
+        }
+        
+        .block-message {
+            background: #151515;
+            border: 2px solid #ff4444;
+            border-radius: 8px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .block-message h2 {
+            color: #ff6666;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+        
+        .block-message p {
+            color: #aaa;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+        
+        .block-message a {
+            display: inline-block;
+            padding: 14px 28px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        
+        .block-message a:hover {
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            color: #fff;
+        }
+        
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 48px;
+            font-weight: 400;
+        }
+        
+        .section {
+            margin-bottom: 48px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #fff;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        
+        .form-group {
+            margin-bottom: 32px;
+        }
+        
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #aaa;
+        }
+        
+        .helper-text {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: #151515;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            color: #e5e5e5;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #444;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        ::placeholder {
+            color: #555;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #151515;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .radio-option:hover {
+            border-color: #444;
+        }
+        
+        .radio-option input {
+            margin-right: 12px;
+            accent-color: #fff;
+        }
+        
+        .radio-option label {
+            margin: 0;
+            color: #e5e5e5;
+            cursor: pointer;
+            font-weight: 400;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: #151515;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .checkbox-option:hover {
+            border-color: #444;
+        }
+        
+        .checkbox-option input {
+            margin-right: 12px;
+            accent-color: #fff;
+        }
+        
+        .checkbox-option label {
+            margin: 0;
+            color: #e5e5e5;
+            cursor: pointer;
+            font-weight: 400;
+        }
+        
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 24px;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        /* READ-ONLY client_id FIELD */
+        .client-id-display {
+            background: #0d1117;
+            border: 1px solid #2a2a2a;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+        
+        .client-id-display label {
+            color: #666;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+        
+        @media (max-width: 600px) {
+            .container { padding: 40px 20px; }
+            h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- DEBUG BANNER -->
+    <div class="debug-banner" id="debug-banner">
+        <div><span class="label">MODULE:</span> module-c</div>
+        <div><span class="label">CLIENT_ID:</span> <span id="debug-client-id"></span></div>
+        <div><span class="label">SOURCE:</span> <span id="debug-source"></span></div>
+        <div><span class="label">STATUS:</span> <span id="debug-status"></span></div>
+    </div>
+    
+    <!-- BLOCKING OVERLAY -->
+    <div class="block-overlay" id="block-overlay">
+        <div class="block-message">
+            <h2>⚠️ Invalid Session</h2>
+            <p>This module requires an active intake session. Please start from the beginning or continue from where you left off.</p>
+            <a href="/module-0.html">Return to Start</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="logo">PRIME</div>
+        
+        <h1>Goals & Priorities</h1>
+        <p class="subtitle">Module C – Understanding What Matters</p>
+        
+        <!-- READ-ONLY CLIENT_ID -->
+        <div class="client-id-display">
+            <label>Session ID</label>
+            <div id="client-id-visible"></div>
+        </div>
+        
+        <form name="module-c" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/module-c-success.html" id="intake-form">
+            <input type="hidden" name="form-name" value="module-c">
+            <input type="hidden" name="module" value="C">
+            <input type="hidden" name="client_id" id="client_id" value="">
+            <input type="hidden" name="intake_status" value="modules_complete">
+            <input type="hidden" name="subject" value="PRIME Intake - Module C Completed">
+            <p style="display:none"><label>Don't fill: <input name="bot-field"></label></p>
+            
+            <!-- HEALTH NARRATIVE -->
+            <div class="section">
+                <div class="section-title">Health Journey</div>
+                
+                <div class="form-group">
+                    <label>What has been the most frustrating part of managing your health so far?</label>
+                    <textarea name="frustration" required placeholder="e.g., Conflicting advice, lack of progress, not knowing where to start..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Looking back over the last few years, how has your health changed?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="trajectory1" name="trajectory" value="Gradually worse" required>
+                            <label for="trajectory1">Gradually worse</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="trajectory2" name="trajectory" value="Fluctuating" required>
+                            <label for="trajectory2">Fluctuating</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="trajectory3" name="trajectory" value="Stable but not optimal" required>
+                            <label for="trajectory3">Stable but not optimal</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="trajectory4" name="trajectory" value="Improving" required>
+                            <label for="trajectory4">Improving</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="trajectory5" name="trajectory" value="Not sure" required>
+                            <label for="trajectory5">Not sure</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>If nothing changes, where do you realistically see your health in 5 years?</label>
+                    <textarea name="future_trajectory" required placeholder="Be honest about your fears or concerns..."></textarea>
+                </div>
+            </div>
+            
+            <!-- PRIORITIES -->
+            <div class="section">
+                <div class="section-title">Your Top Priorities</div>
+                
+                <div class="form-group">
+                    <label>From the list below, select your TOP 3 priorities right now</label>
+                    <p class="helper-text">Choose exactly 3 – this helps us focus your consult on what matters most</p>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pri1" name="priorities" value="Energy / vitality">
+                            <label for="pri1">Energy / vitality</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pri2" name="priorities" value="Strength & physical performance">
+                            <label for="pri2">Strength & physical performance</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pri3" name="priorities" value="Sleep quality">
+                            <label for="pri3">Sleep quality</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pri4" name="priorities" value="Mental clarity / focus">
+                            <label for="pri4">Mental clarity / focus</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pri5" name="priorities" value="Body composition">
+                            <label for="pri5">Body composition</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pri6" name="priorities" value="Pain or symptoms">
+                            <label for="pri6">Pain or symptoms</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pri7" name="priorities" value="Sexual health">
+                            <label for="pri7">Sexual health</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pri8" name="priorities" value="Longevity / disease prevention">
+                            <label for="pri8">Longevity / disease prevention</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SUCCESS METRICS -->
+            <div class="section">
+                <div class="section-title">What Success Looks Like</div>
+                
+                <div class="form-group">
+                    <label>In 3 months, what would tell you this is working?</label>
+                    <p class="helper-text">Be specific – what will you notice, feel, or be able to do differently?</p>
+                    <textarea name="success_3mo" required placeholder="e.g., Sleeping through the night, energy to exercise 3x/week, reduced brain fog..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>In 12 months, what would an excellent outcome look like?</label>
+                    <textarea name="success_12mo" required placeholder="e.g., Back to pre-injury strength, consistently energized, confident in my health strategy..."></textarea>
+                </div>
+            </div>
+            
+            <!-- TIME & BARRIERS -->
+            <div class="section">
+                <div class="section-title">Time & Barriers</div>
+                
+                <div class="form-group">
+                    <label>How much time can you realistically dedicate per week to health-related activities?</label>
+                    <p class="helper-text">This includes exercise, meal prep, appointments, etc.</p>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="time1" name="time_commitment" value="<1 hour" required>
+                            <label for="time1">Less than 1 hour</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="time2" name="time_commitment" value="1–3 hours" required>
+                            <label for="time2">1–3 hours</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="time3" name="time_commitment" value="3–5 hours" required>
+                            <label for="time3">3–5 hours</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="time4" name="time_commitment" value="5–7 hours" required>
+                            <label for="time4">5–7 hours</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="time5" name="time_commitment" value="7+ hours" required>
+                            <label for="time5">7+ hours</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Which factors have limited progress in the past?</label>
+                    <p class="helper-text">Select all that apply</p>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="bar1" name="barriers" value="Time">
+                            <label for="bar1">Time</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="bar2" name="barriers" value="Energy">
+                            <label for="bar2">Energy</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="bar3" name="barriers" value="Pain or symptoms">
+                            <label for="bar3">Pain or symptoms</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="bar4" name="barriers" value="Confusion about what to do">
+                            <label for="bar4">Confusion about what to do</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="bar5" name="barriers" value="Lack of support">
+                            <label for="bar5">Lack of support</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="bar6" name="barriers" value="Motivation">
+                            <label for="bar6">Motivation</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="bar7" name="barriers" value="Cost">
+                            <label for="bar7">Cost</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="bar8" name="barriers" value="Other">
+                            <label for="bar8">Other</label>
+                        </div>
+                    </div>
+                    <div id="barriers-other-container" style="display: none; margin-top: 12px;">
+                        <input type="text" id="barriers_other_text" name="barriers_other_text" placeholder="Please specify...">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PRIORITY & SUPPORT -->
+            <div class="section">
+                <div class="section-title">Priority & Support</div>
+                
+                <div class="form-group">
+                    <label>How high of a priority is this in your life right now?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="plevel1" name="priority_level" value="1" required>
+                            <label for="plevel1"><strong>1</strong> – On the list, but so is everything else</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="plevel2" name="priority_level" value="2" required>
+                            <label for="plevel2"><strong>2</strong> – Important, when I have bandwidth</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="plevel3" name="priority_level" value="3" required>
+                            <label for="plevel3"><strong>3</strong> – Actively working on it, inconsistently</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="plevel4" name="priority_level" value="4" required>
+                            <label for="plevel4"><strong>4</strong> – Non-negotiable, I'm making time</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="plevel5" name="priority_level" value="5" required>
+                            <label for="plevel5"><strong>5</strong> – Top 3 priorities, I'll move other things</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>What type of support helps you most?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="sup1" name="support_style" value="Clear plan, self-directed" required>
+                            <label for="sup1">Clear plan, self-directed</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="sup2" name="support_style" value="Regular accountability" required>
+                            <label for="sup2">Regular accountability</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="sup3" name="support_style" value="High-touch guidance" required>
+                            <label for="sup3">High-touch guidance</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="sup4" name="support_style" value="Tech / data-driven feedback" required>
+                            <label for="sup4">Tech / data-driven feedback</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="sup5" name="support_style" value="Not sure yet" required>
+                            <label for="sup5">Not sure yet</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FINAL CONTEXT -->
+            <div class="section">
+                <div class="form-group">
+                    <label>Is there anything important we haven't asked that you want us to understand before we meet?</label>
+                    <p class="helper-text">Optional – but this is your space to share context that matters</p>
+                    <textarea name="final_context" placeholder="Anything else you'd like us to know..."></textarea>
+                </div>
+            </div>
+            
+            <button type="submit">Complete Intake →</button>
+        </form>
+    </div>
+    
+    <script>
+        // ============================================================
+        // PRODUCTION-GRADE client_id MANAGEMENT
+        // ============================================================
+        
+        const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
+        
+        function getClientId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // Priority 1: URL
+            let clientId = urlParams.get('client_id');
+            let source = 'URL';
+            
+            if (!clientId || clientId.trim() === '') {
+                // Priority 2: localStorage
+                clientId = localStorage.getItem('prime_client_id');
+                source = 'localStorage';
+            }
+            
+            if (!clientId || clientId.trim() === '') {
+                return { clientId: null, source: 'MISSING', valid: false };
+            }
+            
+            const valid = clientId.startsWith('client_') || clientId.startsWith('app_');
+            
+            return { clientId, source, valid };
+        }
+        
+        // INITIALIZE
+        const result = getClientId();
+        
+        // DEBUG BANNER
+        if (DEBUG_MODE) {
+            document.body.classList.add('debug-mode');
+            document.getElementById('debug-banner').classList.add('show');
+            document.getElementById('debug-client-id').textContent = result.clientId || 'NULL';
+            document.getElementById('debug-source').textContent = result.source;
+            
+            const statusEl = document.getElementById('debug-status');
+            if (result.valid) {
+                statusEl.innerHTML = '<span class="ok">✓ VALID</span>';
+            } else {
+                statusEl.innerHTML = '<span class="error">✗ INVALID - BLOCKING</span>';
+            }
+        }
+        
+        // BLOCK IF INVALID
+        if (!result.valid) {
+            console.error('❌ BLOCKING: Invalid client_id');
+            console.error('Source:', result.source);
+            console.error('Value:', result.clientId);
+            
+            document.getElementById('block-overlay').classList.add('show');
+            document.getElementById('intake-form').style.display = 'none';
+            
+            throw new Error('Invalid client_id - module blocked');
+        }
+        
+        // VALID - PROCEED
+        console.log('✓ Valid client_id:', result.clientId);
+        console.log('  Source:', result.source);
+        
+        document.getElementById('client_id').value = result.clientId;
+        document.getElementById('client-id-visible').textContent = result.clientId;
+        localStorage.setItem('prime_client_id', result.clientId);
+        
+        // ============================================================
+        // FORM BEHAVIOR
+        // ============================================================
+        
+        // Barriers "Other" field
+        const barriersOther = document.getElementById('bar8');
+        const barriersOtherContainer = document.getElementById('barriers-other-container');
+        
+        barriersOther.addEventListener('change', function() {
+            barriersOtherContainer.style.display = this.checked ? 'block' : 'none';
+            if (!this.checked) {
+                document.getElementById('barriers_other_text').value = '';
+            }
+        });
+        
+        // Enforce exactly 3 priorities
+        const priorityCheckboxes = document.querySelectorAll('input[name="priorities"]');
+        priorityCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checkedCount = document.querySelectorAll('input[name="priorities"]:checked').length;
+                
+                if (checkedCount > 3) {
+                    this.checked = false;
+                    alert('Please select exactly 3 priorities');
+                }
+                
+                priorityCheckboxes.forEach(cb => {
+                    if (checkedCount >= 3 && !cb.checked) {
+                        cb.disabled = true;
+                        cb.parentElement.style.opacity = '0.5';
+                    } else {
+                        cb.disabled = false;
+                        cb.parentElement.style.opacity = '1';
+                    }
+                });
+            });
+        });
+        
+        // PRE-SUBMIT VALIDATION
+        document.getElementById('intake-form').addEventListener('submit', function(e) {
+            const checkedCount = document.querySelectorAll('input[name="priorities"]:checked').length;
+            if (checkedCount !== 3) {
+                e.preventDefault();
+                alert('Please select exactly 3 priorities before submitting');
+                document.querySelector('input[name="priorities"]').focus();
+                return false;
+            }
+            
+            const finalClientId = document.getElementById('client_id').value;
+            
+            console.log('🚀 SUBMITTING');
+            console.log('  Form:', 'module-c');
+            console.log('  client_id:', finalClientId);
+            console.log('  intake_status:', 'modules_complete');
+            
+            if (!finalClientId || finalClientId.trim() === '') {
+                e.preventDefault();
+                alert('FATAL ERROR: client_id missing at submit time. Please contact support.');
+                console.error('❌ SUBMISSION BLOCKED: client_id empty');
+                return false;
+            }
+            
+            console.log('✓ Submission allowed');
+        });
+    </script>
+</body>
+</html>
